@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Cliente } from '../cliente-model';
 import { ClienteService } from '../cliente-service';
@@ -12,7 +13,8 @@ export class ListagemComponent implements OnInit {
 
   clientes$: Observable<Cliente[]>;
   idExclusao: string;
-  constructor(private service: ClienteService) { }
+  constructor(private service: ClienteService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.clientes$ = this.service.list();
@@ -29,7 +31,7 @@ export class ListagemComponent implements OnInit {
     this.idExclusao = id;
   }
 
-  async exclui(idCliente) {
+  exclui(idCliente) {
     console.log(`excluindo.... ${this.idExclusao}`)
     this.service.delete(idCliente).subscribe(
       () => {
@@ -40,6 +42,10 @@ export class ListagemComponent implements OnInit {
         console.log(error);
         console.log('Erro ao excluir registro')
       });
+  }
+
+  adiciona() {
+    this.router.navigate(['edicao']);
   }
 
 

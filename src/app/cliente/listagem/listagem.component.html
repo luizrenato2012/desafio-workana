@@ -1,7 +1,8 @@
 <div class="card">
   <div class="card-body">
     <h3 class="card-title">Listagem de Clientes</h3>
-    <button type="button" class="btn btn-primary" title="Inclui cliente">
+    <button type="button" class="btn btn-primary" title="Inclui cliente" (click)="adiciona()">
+      Inclui
       <i class="bi bi-person-plus"></i>
     </button>
     <br>
@@ -26,7 +27,7 @@
               <i class="bi bi-person-bounding-box"></i>
             </button>
             <a href="#myDlg" class="btn btn-danger btn-sm" role="button" data-bs-toggle="modal"
-              (click)="seleciona(cliente.id)">
+              (click)="seleciona(cliente.id)" title="Exclui cliente">
               <i class="bi-person-x"></i>
             </a>
           </td>

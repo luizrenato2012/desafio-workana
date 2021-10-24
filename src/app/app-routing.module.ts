@@ -8,6 +8,10 @@ const routes: Routes = [
     loadChildren: () => import('./cliente/listagem/listagem.module').then(m => m.ListagemModule)
   },
   {
+    path: 'edicao',
+    loadChildren: () => import('./cliente/edicao/edicao.module').then(m => m.EdicaoModule)
+  },
+  {
     path: '',
     redirectTo: '/listagem',
     pathMatch: 'full'
