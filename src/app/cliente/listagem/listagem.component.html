@@ -1,0 +1,43 @@
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Listagem de Clientes</h3>
+    <button type="button" class="btn btn-primary" title="Inclui cliente" (click)="adiciona()">
+      Inclui
+      <i class="bi bi-person-plus"></i>
+    </button>
+    <div class="alert alert-success alert-dismissible fade show box-alerta" *ngIf="mensagem!==''">
+      <strong>Sucesso!</strong> {{mensagem}}
+    </div>
+    <br>
+    <table class="table py-3">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>Data de Nascimento</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes ">
+          <td>{{cliente.nome}}</td>
+          <td>{{cliente.email}}</td>
+          <td>{{cliente.telefone | telefoneFormat}}</td>
+          <td>{{cliente.dataNascimento | date:'dd/MM/yyyy'}}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" title="Altera cliente" (click)="altera(cliente.id)">
+              <i class="bi bi-person-bounding-box"></i>
+            </button>
+            <a href="#myDlg" class="btn btn-danger btn-sm" role="button" data-bs-toggle="modal"
+              (click)="seleciona(cliente.id)" title="Exclui cliente">
+              <i class="bi-person-x"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-dialog (isConfirmado)="confirmaExclusao($event)"></app-dialog>

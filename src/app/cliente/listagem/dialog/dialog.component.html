@@ -1,0 +1,18 @@
+<div id="myDlg" class="modal fade" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Exclusão</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>Deseja excluir o cliente?</p>
+        <p class="text-secondary"><small>Esta operação não poderá ser desfeita!</small></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancela</button>
+        <button type="button" class="btn btn-primary" (click)="confirma()" data-bs-dismiss="modal">Confirma</button>
+      </div>
+    </div>
+  </div>
+</div>

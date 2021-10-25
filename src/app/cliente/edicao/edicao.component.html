@@ -1,0 +1,60 @@
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">{{tipoEdicao}} de Clientes</h3>
+    <div class="alert alert-success alert-dismissible fade show" *ngIf="exibeMensagem">
+      <strong>Sucesso!</strong> Registro gravado com sucesso.
+    </div>
+    <form [formGroup]="form" (ngSubmit)="grava()" autocomplete="on" novalidate>
+      <div class="mb-3">
+        <label class="form-label" for="nome">Nome</label>
+        <input type="text" class="form-control" id="nome" placeholder="Nome Completo" formControlName="nome">
+        <div *ngIf="form.controls.nome.errors?.required &&(form.controls.nome.touched || form.controls.nome.dirty )"
+          class="invalid">
+          Digite um nome válido
+        </div>
+      </div>
+      <div class=" mb-3">
+        <label class="form-label" for="inputEmail">Email</label>
+        <input type="email" class="form-control" id="inputEmail" placeholder="Email" novalidate formControlName="email">
+        <div *ngIf="form.controls.email.errors &&(form.controls.email.touched || form.controls.email.dirty )"
+          class="invalid">
+          Digite um email válido
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="inputTelefone">Telefone</label>
+        <input type="text" mask="(00)0000-0000" class="form-control" id="inputTelefone" placeholder="Telefone"
+          formControlName="telefone">
+        <div
+          *ngIf="form.controls.telefone.errors?.required &&(form.controls.telefone.touched || form.controls.telefone.dirty )"
+          class="invalid">
+          Digite um telefone válido
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="inputDataNascimento">Data de Nascimento</label>
+        <input type="date" class="form-control" id="inputDataNascimento" placeholder="Data de Nascimento"
+          formControlName="dataNascimento">
+        <div
+          *ngIf="form.controls.dataNascimento.errors?.required &&(form.controls.dataNascimento.touched || form.controls.dataNascimento.dirty )"
+          class="invalid">
+          Digite uma data de nascimento válida
+        </div>
+      </div>
+      <div class="btn-group">
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+          Grava
+          <i class="bi bi-person-check-fill"></i>
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="cancela()">
+          Cancela
+          <i class="bi bi-person-x"></i>
+        </button>
+        <button type="button" class="btn btn-info" (click)="volta()">
+          Volta
+          <i class="bi bi-box-arrow-left"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
