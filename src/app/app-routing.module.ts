@@ -8,7 +8,11 @@ const routes: Routes = [
     loadChildren: () => import('./cliente/listagem/listagem.module').then(m => m.ListagemModule)
   },
   {
-    path: 'edicao',
+    path: 'edicao/:id',
+    loadChildren: () => import('./cliente/edicao/edicao.module').then(m => m.EdicaoModule)
+  },
+  {
+    path: 'inclusao',
     loadChildren: () => import('./cliente/edicao/edicao.module').then(m => m.EdicaoModule)
   },
   {

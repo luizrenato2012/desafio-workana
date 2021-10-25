@@ -17,13 +17,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let cliente of clientes$ | async">
+        <tr *ngFor="let cliente of clientes ">
           <td>{{cliente.nome}}</td>
           <td>{{cliente.email}}</td>
-          <td>{{cliente.telefone}}</td>
+          <td>{{cliente.telefone | telefoneFormat}}</td>
           <td>{{cliente.dataNascimento | date:'dd/MM/yyyy'}}</td>
           <td>
-            <button class="btn btn-warning btn-sm" title="Altera cliente">
+            <button class="btn btn-warning btn-sm" title="Altera cliente" (click)="altera(cliente.id)">
               <i class="bi bi-person-bounding-box"></i>
             </button>
             <a href="#myDlg" class="btn btn-danger btn-sm" role="button" data-bs-toggle="modal"

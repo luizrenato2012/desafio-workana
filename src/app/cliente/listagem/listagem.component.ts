@@ -11,17 +11,22 @@ import { ClienteService } from '../cliente-service';
 })
 export class ListagemComponent implements OnInit {
 
-  clientes$: Observable<Cliente[]>;
+  clientes: Cliente[];
   idExclusao: string;
   constructor(private service: ClienteService,
     private router: Router) { }
 
   ngOnInit(): void {
-    this.clientes$ = this.service.list();
+    this.listaClientes();
+  }
+
+  private listaClientes() {
+    this.service.list().subscribe(retorno => {
+      this.clientes = retorno;
+    }, error => console.error(error));
   }
 
   confirmaExclusao(isConfirma: boolean) {
-    console.log(`Listagem - Recebido ${isConfirma}`);
     if (isConfirma) {
       this.exclui(this.idExclusao);
     }
@@ -32,20 +37,21 @@ export class ListagemComponent implements OnInit {
   }
 
   exclui(idCliente) {
-    console.log(`excluindo.... ${this.idExclusao}`)
     this.service.delete(idCliente).subscribe(
       () => {
-        console.log('excluido com sucesso');
-        this.clientes$ = this.service.list();
+        this.service.list().subscribe(retorno => this.clientes = retorno, error => console.error(error));
         console.log('Registro excluido com sucesso');
       }, (error) => {
         console.log(error);
-        console.log('Erro ao excluir registro')
       });
   }
 
   adiciona() {
-    this.router.navigate(['edicao']);
+    this.router.navigate(['inclusao']);
+  }
+
+  altera(id: string) {
+    this.router.navigate(['edicao', id])
   }
 
 
