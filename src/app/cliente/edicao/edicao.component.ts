@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ClienteFirestoreService } from '../cliente-firestore-service';
 import { Cliente } from '../cliente-model';
 import { ClienteService } from '../cliente-service';
 
@@ -18,7 +19,7 @@ export class EdicaoComponent implements OnInit {
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
-    private service: ClienteService,
+    private service: ClienteFirestoreService,
     private activatedRoute: ActivatedRoute) {
     this.initCliente();
   }
@@ -29,12 +30,14 @@ export class EdicaoComponent implements OnInit {
 
   private async initCliente() {
     const param = this.activatedRoute.snapshot.params.id;
-    console.log(`Param ${param}`);
     if (param) {
       const id = param;
-      this.valores = await this.service.find(id).toPromise();
+      const recebido = this.activatedRoute.snapshot.data.cliente;
+      this.valores = recebido;
+      this.initForm();
+    } else {
+      this.initForm();
     }
-    this.initForm();
   }
 
   private initForm() {
@@ -59,14 +62,15 @@ export class EdicaoComponent implements OnInit {
 
   cancela() {
     this.form.reset();
+    this.tipoEdicao = 'Inclusão';
     this.exibeMensagem = false;
   }
 
   grava() {
     this.valores = { ... this.form.getRawValue() };
     console.log(`Gravando ${JSON.stringify(this.valores)}`);
-    this.service.save(this.valores).subscribe(
-      retorno => {
+    this.service.saveOrUpdate(this.valores).then(
+      () => {
         this.form.reset();
         this.exibeMensagem = true;
       }, error => console.log('Erro ao inserir')

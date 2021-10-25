@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { Cliente } from "./cliente-model";
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +37,7 @@ export class ClienteService {
       telefone: "6181114444",
       dataNascimento: '2000-04-18'
     }
-  ]
+  ];
 
   public list(): Observable<Cliente[]> {
     return of(this.clientes);
@@ -52,7 +53,7 @@ export class ClienteService {
    * @param cliente
    * @returns
    */
-  public save(cliente: Cliente): Observable<Cliente> {
+  public saveOrUpdate(cliente: Cliente): Observable<Cliente> {
 
     if (cliente.id) {
       let atual = this.clientes.find(cl => cliente.id === cl.id);

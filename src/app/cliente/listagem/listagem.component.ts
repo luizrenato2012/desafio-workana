@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ClienteFirestoreService } from '../cliente-firestore-service';
+
 import { Cliente } from '../cliente-model';
 import { ClienteService } from '../cliente-service';
 
@@ -13,7 +14,9 @@ export class ListagemComponent implements OnInit {
 
   clientes: Cliente[];
   idExclusao: string;
-  constructor(private service: ClienteService,
+  mensagem = '';
+
+  constructor(private service: ClienteFirestoreService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -27,6 +30,7 @@ export class ListagemComponent implements OnInit {
   }
 
   confirmaExclusao(isConfirma: boolean) {
+    this.mensagem = '';
     if (isConfirma) {
       this.exclui(this.idExclusao);
     }
@@ -37,20 +41,22 @@ export class ListagemComponent implements OnInit {
   }
 
   exclui(idCliente) {
-    this.service.delete(idCliente).subscribe(
+    this.service.delete(idCliente).then(
       () => {
         this.service.list().subscribe(retorno => this.clientes = retorno, error => console.error(error));
-        console.log('Registro excluido com sucesso');
+        this.mensagem = 'Registro excluido com sucesso';
       }, (error) => {
         console.log(error);
       });
   }
 
   adiciona() {
+    this.mensagem = '';
     this.router.navigate(['inclusao']);
   }
 
   altera(id: string) {
+    this.mensagem = '';
     this.router.navigate(['edicao', id])
   }
 

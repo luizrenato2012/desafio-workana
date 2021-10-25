@@ -5,6 +5,9 @@
       Inclui
       <i class="bi bi-person-plus"></i>
     </button>
+    <div class="alert alert-success alert-dismissible fade show box-alerta" *ngIf="mensagem!==''">
+      <strong>Sucesso!</strong> {{mensagem}}
+    </div>
     <br>
     <table class="table py-3">
       <thead>
