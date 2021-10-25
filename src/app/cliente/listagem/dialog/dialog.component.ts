@@ -16,8 +16,6 @@ export class DialogComponent implements OnInit {
   }
 
   confirma() {
-    console.log(`Dialog - Confirmado `);
-    console.log('Enviando');
     this.isConfirmado.emit(true);
   }
 
